@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>中文错别字检测</title>
+
+  <link rel="shortcut icon" href="https://joway.io/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic|Material+Icons">
+  <link rel="stylesheet" href="https://unpkg.com/vue-material@beta/dist/vue-material.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/vue-material@beta/dist/theme/default.css">
+
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://unpkg.com/vue-material@beta"></script>
+
+  <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-53624533-6']);
+      _gaq.push(['_setDomainName', 'typo.sh.mk']);
+      _gaq.push(['_trackPageview']);
+
+      (function () {
+          var ga = document.createElement('script');
+          ga.type = 'text/javascript';
+          ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0];
+          s.parentNode.insertBefore(ga, s);
+      })();
+  </script>
+</head>
+<body>
+<div id="app">
+  <div class="md-layout md-gutter md-alignment-center-center">
+    <div class="md-layout-item md-size-50 md-xsmall-size-80">
+      <h1 style="text-align: center;margin: 64px 0 32px 0;">中文错别字在线检测</h1>
+      <md-field>
+        <label>待检测文本</label>
+        <md-textarea v-model="textarea"></md-textarea>
+      </md-field>
+
+      <div class="md-layout md-gutter md-alignment-top-right">
+        <div class="md-layout-item md-size-25">
+          <md-button class="md-raised md-primary" style="float: right"
+                     @click="correctContent(this.textarea)">检测
+          </md-button>
+        </div>
+      </div>
+
+      <md-content v-html="this.makeup(this.textarea)" style="margin: 32px 0;padding: 12px;">
+      </md-content>
+    </div>
+  </div>
+</div>
+
+<script>
+    Vue.use(VueMaterial.default)
+
+    const BASIC_API = 'https://api.sh.mk/api/v1/zhchecker'
+    new Vue({
+        el: '#app',
+        data: {
+            textarea: '',
+        },
+        methods: {
+            makeup: function (content) {
+                return content.replace(/(?:\r\n|\r|\n)/g, '<br />');
+            },
+            correctContent: function (content) {
+                fetch(BASIC_API + '/check', {
+                    method: "POST",
+                    body: JSON.stringify({
+                        content: content,
+                    }),
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    credentials: "include"
+                }).then(function (response) {
+                    return response.json()
+                }, function (error) {
+                    error.message //=> String
+                }).then(function (data) {
+                    console.log(data)
+                })
+            },
+        }
+    })
+</script>
+</body>
+
+</html>
