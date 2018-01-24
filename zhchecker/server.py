@@ -7,6 +7,12 @@ from zhchecker import ZhChecker
 zh_checker = ZhChecker()
 
 
+async def health(ctx: Context):
+    ctx.body = {
+        'success': True
+    }
+
+
 async def checker(ctx: Context):
     data = ctx.req.json
     content = data['content']
@@ -32,6 +38,7 @@ async def correct(ctx: Context):
 app = Lemon(debug=False)
 
 router = Router()
+router.get('/health', health)
 router.post('/api/v1/zhchecker/check', checker)
 router.post('/api/v1/zhchecker/correct', correct)
 
