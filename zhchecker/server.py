@@ -37,4 +37,4 @@ router.post('/1.0/zhchecker/correct', correct)
 
 app.use(router.routes())
 
-app.listen()
+app.listen(host='0.0.0.0')
