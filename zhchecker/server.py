@@ -29,7 +29,7 @@ async def correct(ctx: Context):
     }
 
 
-app = Lemon(debug=True)
+app = Lemon(debug=False)
 
 router = Router()
 router.post('/api/v1/zhchecker/check', checker)
