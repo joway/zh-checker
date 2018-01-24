@@ -11,4 +11,4 @@ ADD ./ ./
 
 EXPOSE 9999
 
-CMD python zhchecker/server.py
+CMD PYTHONPATH=./:$PYTHONPATH python zhchecker/server.py

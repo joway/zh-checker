@@ -32,8 +32,8 @@ async def correct(ctx: Context):
 app = Lemon(debug=True)
 
 router = Router()
-router.post('/1.0/zhchecker/check', checker)
-router.post('/1.0/zhchecker/correct', correct)
+router.post('/api/v1/zhchecker/check', checker)
+router.post('/api/v1/zhchecker/correct', correct)
 
 app.use(router.routes())
 
