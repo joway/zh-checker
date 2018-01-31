@@ -35,7 +35,14 @@ async def correct(ctx: Context):
     }
 
 
-app = Lemon(debug=False)
+app = Lemon(
+    config={
+        'LEMON_CORS_ENABLE': True,
+        'LEMON_CORS_ORIGIN': '*',
+        'LEMON_CORS_ALLOW_CREDENTIALS': True,
+    },
+    debug=False
+)
 
 router = Router()
 router.get('/health', health)
