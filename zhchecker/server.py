@@ -41,7 +41,7 @@ app = Lemon(
         'LEMON_CORS_ORIGIN': '*',
         'LEMON_CORS_ALLOW_CREDENTIALS': True,
     },
-    debug=False
+    debug=True,
 )
 
 router = Router()
