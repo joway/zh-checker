@@ -38,7 +38,7 @@ async def correct(ctx: Context):
 app = Lemon(
     config={
         'LEMON_CORS_ENABLE': True,
-        'LEMON_CORS_ORIGIN': '*',
+        'LEMON_CORS_ORIGIN': 'https://zh.sh.mk',
         'LEMON_CORS_ALLOW_CREDENTIALS': True,
     },
     debug=True,
